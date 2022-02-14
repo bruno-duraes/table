@@ -1,0 +1,48 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.form-register{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+#insert input{
+    width: 260px;
+    height: 28px;
+}
+
+#insert label{
+    font-size: larger;
+}
+
+.save-btn{
+    margin-inline: 1em;
+    margin-bottom: 1em;
+}
+
+tbody{
+    font-size: 16px;
+}
+
+#delete-btn{
+    color: rgb(224, 62, 62);
+}
+
+#delete-btn:hover{
+    color: rgb(122, 120, 141);
+    cursor: pointer;
+}
+
+
+.table-form{
+    display: flex;
+    justify-content: center;
+}
+.table-form table{
+    width: 90vw;
+}
