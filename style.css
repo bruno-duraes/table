@@ -63,6 +63,7 @@ tbody{
 } */
 
 .table-btns{
+    width: 75px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -84,4 +85,14 @@ tbody{
 }
 #edit-btn:hover{
     color: steelblue;
+}
+
+#order-total{
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 2em;
+}
+
+#display-value{
+    margin-inline: 3px;
 }
