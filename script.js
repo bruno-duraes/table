@@ -1,3 +1,9 @@
+this.workflowCockpit = workflowCockpit({
+    init: _loadData,
+    onSubmit: _saveData,
+    onError: _rollback
+});
+
 function addData() {
 
     let idV = document.querySelector('.table').getElementsByTagName('tr').length
