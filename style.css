@@ -29,8 +29,48 @@ tbody{
     font-size: 16px;
 }
 
+.table-form{
+    display: flex;
+    justify-content: center;
+}
+.table-form table{
+    width: 90vw;
+}
+
+.td-input{
+    background: none;
+    border: none;
+}
+
+.qntd,.th-qntd{
+    width: 80px;
+}
+
+.name,.th-name{
+    width: 55vw;
+}
+
+.unit-value,.th-unit-value{
+    width: 10vw;
+}
+
+.total-value,.th-total-value{
+    width: 10vw;
+}
+
+/* .td-btn{
+    padding: 0px;
+} */
+
+.table-btns{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 #delete-btn{
     color: rgb(224, 62, 62);
+    font-size: 28px;
 }
 
 #delete-btn:hover{
@@ -38,11 +78,10 @@ tbody{
     cursor: pointer;
 }
 
-
-.table-form{
-    display: flex;
-    justify-content: center;
+#edit-btn{
+    cursor: pointer;
+    font-size: 30px;
 }
-.table-form table{
-    width: 90vw;
+#edit-btn:hover{
+    color: steelblue;
 }

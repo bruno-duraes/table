@@ -13,19 +13,23 @@ function addData() {
     row.setAttribute('id', `row${idV}`)
 
     let qntd = document.createElement('td')
-    qntd.innerHTML = `<input type="text" class="td-input value="${qntdV}">`
+    qntd.innerHTML = `<input type="text" class="td-input qntd" value="${qntdV}" readonly>`
 
     let name = document.createElement('td')
-    name.innerHTML = nameV
+    name.innerHTML = `<input type="text" class="td-input name" value="${nameV}" readonly>`
 
     let unitValue = document.createElement('td')
-    unitValue.innerHTML = `R$${unitValueV}`
+    unitValue.innerHTML = `<input type="text" class="td-input unit-value" value="R$${unitValueV}" readonly>`
 
     let totalValue = document.createElement('td')
-    totalValue.innerHTML = `R$${calculateTotalvalue(qntdV, unitValueV)}`
+    totalValue.innerHTML = `<input type="text" class="td-input total-value" value="R$${calculateTotalvalue(qntdV, unitValueV)}" readonly>`
 
     let btn = document.createElement('td')
-    btn.innerHTML = `<i class="bi bi-x-square-fill" id="delete-btn" onclick="deleteLine(${idV})"></i>`
+    btn.innerHTML = `<div class="table-btns">
+    <i class="bi bi-pencil-square" id="edit-btn"></i>
+    <i class="bi bi-x-square-fill" id="delete-btn" onclick="deleteLine(${idV})"></i>
+    </div>`
+    btn.setAttribute('style', 'padding: 0')
 
     tbody.appendChild(row)
     row.appendChild(qntd)
