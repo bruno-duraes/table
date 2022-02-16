@@ -28,7 +28,6 @@ function addData() {
         let nameV = document.querySelector('#name').value
         let unitValueV = document.querySelector('#unit-value').value
         let idV = getId()
-        console.log(idV, arrayId)
 
         let tbody = document.querySelector('#tbody')
 
@@ -36,17 +35,26 @@ function addData() {
         row.setAttribute('id', `row${idV}`)
 
         let qntd = document.createElement('td')
-        qntd.innerHTML = `<input type="text" class="td-input qntd" value="${qntdV}" readonly>`
+        qntd.innerHTML = `<div class="td-div" id="td-edit">
+        <input type="number" class="td-input qntd form-control" value="${qntdV}" min="0" max="100" readonly required>
+        <div>`
 
         let name = document.createElement('td')
-        name.innerHTML = `<input type="text" class="td-input name" value="${nameV}" readonly>`
+        name.innerHTML = `<div class="td-div" id="td-edit">
+        <i class="bi bi-caret-right-fill"></i>
+        <input type="text" class="td-input name form-control" value="${nameV}" readonly required>
+        </div`
 
         let unitValue = document.createElement('td')
-        unitValue.innerHTML = `<input type="text" class="td-input unit-value" value="R$${unitValueV}" readonly>`
+        unitValue.innerHTML = `<div class="td-div" id="td-edit">
+        <span style="padding-top: 3px">R$</span>
+        <input type="number" class="td-input unit-value form-control" value="${unitValueV}" readonly required>
+        </div>`
 
         let totalValue = document.createElement('td')
-        totalValue.innerHTML = `<input type="text" class="td-input total-value" value="R$${calculateTotalValue(qntdV, unitValueV)}" readonly>`
-
+        totalValue.innerHTML = `<div class="td-div" id="td-total-value">
+        <span style="padding-top: 3px">R$</span><input type="text" class="td-input total-value form-control" value="${calculateTotalValue(qntdV, unitValueV)}" readonly required>
+        </div>`
         let btn = document.createElement('td')
         btn.innerHTML = `<div class="table-btns">
         <i class="bi bi-pencil-square" id="edit-btn" onclick="editLine(${idV})"></i>
@@ -61,30 +69,50 @@ function addData() {
         row.appendChild(totalValue)
         row.appendChild(btn)
 
-        // idNumber++
+        addTotalValue()
 
         //  Limpando os campos
         document.querySelector('#qntd').value = ''
         document.querySelector('#name').value = ''
         document.querySelector('#unit-value').value = ''
 
-        function calculateTotalValue(num1, num2) {
-
-            if (num2.toString().indexOf(',') > 0) {
-                num1 = parseInt(num1.replace(",", "."))
-                num2 = parseFloat(num2.replace(",", "."))
-                let result = num1 * num2
-                resultDecimal = `${Math.round(parseFloat(result.toString().split('.')[1].split('').slice(0, 2).join('.')))}${0}`
-                resultInt = result.toString().split('.')[0]
-                result = `${resultInt},${resultDecimal}`
-                return result.toString()
-            } else {
-                return num1 * num2
-            }
-        }
-
     } else {
         alert('Numero de linhas excedido ☺')
+    }
+}
+
+let totalPrice = 0
+
+function addTotalValue() {
+
+    let totalValue = document.querySelectorAll('.td-input.total-value')
+    let displayValue = document.querySelector('#display-value').innerHTML
+    console.log(displayValue)
+    for (let i = 0; i < totalValue.length; i++) {
+        let element = totalValue[i].value
+        element = parseFloat(element.split(',').join('.'))
+        let displayValueNumber = parseFloat(displayValue.split(',').join('.'))
+        totalPrice = totalPrice + element
+        document.querySelector('#display-value').innerHTML = totalPrice.toString()
+        console.log(totalPrice)
+    }
+}
+
+function calculateTotalValue(qntd, price) {
+    if (price.toString().indexOf('.') > 0) {
+        let result = qntd * price
+        if (result.toString().indexOf('.') > 0) {
+            resultDecimal = `${Math.round(parseFloat(result.toString().split('.')[1].split('').slice(0, 2).join('.')))}${0}`
+            resultInt = result.toString().split('.')[0]
+            result = `${resultInt},${resultDecimal}`
+            console.log('decimal')
+            return result.toString()
+        } else {
+            return `${result},00`
+        }
+    } else {
+        console.log('normal')
+        return `${qntd * price},00`
     }
 }
 
@@ -96,13 +124,15 @@ function deleteLine(i) {
 
 function editLine(obj) {
 
+
+
     let allElements = document.querySelector(`#row${obj}`).children
+    // console.log(allElements[0].querySelector('input'))
+    if (allElements[0].querySelector('input').hasAttribute('readonly')) {
+        for (let i = 0; i < 3; i++) {
 
-    if (allElements[0].children[0].hasAttribute('readonly')) {
-        for (let i = 0; i < 4; i++) {
-
-            let element = allElements[i].children
-            element[0].removeAttribute('readonly')
+            let element = allElements[i].querySelector('input')
+            element.removeAttribute('readonly')
         }
     } else {
         for (let i = 0; i < 4; i++) {
@@ -113,3 +143,36 @@ function editLine(obj) {
     }
 
 }
+
+function disableAttributeReaonly() {
+    for (let i = 0; i < arrayId.length; i++) {
+        const tr = document.querySelector(`#row${arrayId[i]}`)
+        for (let x = 0; x < 4; x++) {
+            const input = tr.children[x].querySelector('input');
+            console.log(input)
+            input.removeAttribute('readonly')
+        }
+    }
+}
+
+// Validation Bootstrap
+(function () {
+    'use strict'
+
+    var forms = document.querySelectorAll('.needs-validation')
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                disableAttributeReaonly()
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()

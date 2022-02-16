@@ -37,9 +37,11 @@ tbody{
     width: 90vw;
 }
 
-.td-input{
+.td-input.form-control{
     background: none;
     border: none;
+    height: 30px;
+    padding-inline: 3px;
 }
 
 .qntd,.th-qntd{
@@ -95,4 +97,19 @@ tbody{
 
 #display-value{
     margin-inline: 3px;
+}
+
+.td-div{
+    display:flex;
+}
+
+caption{
+    padding: 0;
+}
+.bi-cart3{
+    font-size: 20px;
+}
+
+.bi-caret-right-fill{
+    padding-top: 3px;
 }
