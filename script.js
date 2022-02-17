@@ -94,7 +94,7 @@ function addData() {
             row.appendChild(totalValue)
             row.appendChild(btn)
 
-            addTotalValue()
+            sumPrice(idV)
 
             //  Limpando os campos
             document.querySelector('#qntd').value = ''
@@ -107,44 +107,40 @@ function addData() {
     }
 }
 
-function addTotalValue() {
+function sumPrice(i) {
+    let rowValue = parseFloat(document.querySelector(`#input-totalValue-${i}`).value.split(',').join('.'))
+    totalPrice = totalPrice + rowValue
+    document.querySelector('#display-value').innerHTML = totalPrice
+}
 
-    let totalValue = document.querySelectorAll('.td-input.total-value')
-    let displayValue = document.querySelector('#display-value').innerHTML
-    for (let i = 0; i < totalValue.length; i++) {
-        let element = totalValue[i].value
-        element = parseFloat(element.split(',').join('.'))
-        let displayValueNumber = parseFloat(displayValue.split(',').join('.'))
-        totalPrice = totalPrice + element
-        document.querySelector('#display-value').innerHTML = totalPrice.toString()
-    }
+function subtractPrice(i) {
+    let rowValue = parseFloat(document.querySelector(`#input-totalValue-${i}`).value.split(',').join('.'))
+    totalPrice = totalPrice - rowValue
+    document.querySelector('#display-value').innerHTML = totalPrice
 }
 
 function calculateTotalValue(qntd, price) {
-    if (price.toString().indexOf('.') > 0) {
-        let result = qntd * price
-        if (result.toString().indexOf('.') > 0) {
-            resultDecimal = `${Math.round(parseFloat(result.toString().split('.')[1].split('').slice(0, 2).join('.')))}${0}`
-            resultInt = result.toString().split('.')[0]
-            result = `${resultInt},${resultDecimal}`
-            return result.toString()
-        } else {
-            return `${result},00`
-        }
+    if (price.indexOf('.') !== -1) {
+        let priceInt = parseInt(price.split('.')[0])
+        let priceFloat = parseInt(price.split('.')[1])
+        priceFloat = parseInt(qntd) * priceFloat
+        priceInt = parseInt(qntd) * priceInt
+        let extractNum = priceFloat.toString().split('').reverse().splice(2).reverse()
+        priceFloat = priceFloat.toString().split('').slice(-2).join('')
+        console.log(priceInt, extractNum, priceFloat)
     } else {
-        return `${qntd * price},00`
+        console.log(',', false)
     }
+
 }
 
 function deleteLine(i) {
-
+    subtractPrice(i)
     document.querySelector(`#row${i}`).remove()
     arrayId.splice(arrayId.indexOf(i), 1)
 }
 
 function editLine(obj) {
-
-
 
     let allElements = document.querySelector(`#row${obj}`).children
     // console.log(allElements[0].querySelector('input'))
@@ -163,8 +159,6 @@ function editLine(obj) {
     }
 
 }
-
-
 
 // Validation Bootstrap
 (function () {
