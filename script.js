@@ -5,7 +5,7 @@ this.workflowCockpit = workflowCockpit({
 });
 
 let arrayId = []
-let totalPrice = 0
+let totalPrice = document.querySelector('#display-value').value
 
 function getId() {
 
@@ -60,20 +60,20 @@ function addData() {
 
             let qntd = document.createElement('td')
             qntd.innerHTML = `<div class="td-div" id="td-edit">
-        <input id="input-qnt-${idV}" type="number" class="td-input qntd form-control" value="${qntdV}" min="0" max="100" readonly required>
+        <input id="input-qnt-${idV}" type="number" class="td-input qntd form-control" value="${qntdV}" min="0" readonly required>
         <div>`
 
             let name = document.createElement('td')
             name.innerHTML = `<div class="td-div" id="td-edit">
-        <i class="bi bi-caret-right-fill"></i>
         <input id="input-name-${idV}" type="text" class="td-input name form-control" value="${nameV}" readonly required>
         </div`
 
             let unitValue = document.createElement('td')
             unitValue.innerHTML = `<div class="td-div" id="td-edit">
         <span style="padding-top: 3px">R$</span>
-        <input id="input-unitValue-${idV}" type="number" class="td-input unit-value form-control" value="${unitValueV}" readonly required>
+        <input id="input-unitValue-${idV}" type="text" class="td-input unit-value form-control" data-mask="0" value="${unitValueV}" readonly required>
         </div>`
+
 
             let totalValue = document.createElement('td')
             totalValue.innerHTML = `<div class="td-div" id="td-total-value">
@@ -95,12 +95,14 @@ function addData() {
             row.appendChild(btn)
 
             sumPrice(idV)
+            showTotalPrice(totalPrice)
 
             //  Limpando os campos
             document.querySelector('#qntd').value = ''
             document.querySelector('#name').value = ''
             document.querySelector('#unit-value').value = ''
 
+            document.querySelector('#qntd').focus()
         } else {
             shootModal('modal-maxLines')
         }
@@ -109,29 +111,30 @@ function addData() {
 
 function sumPrice(i) {
     let rowValue = parseFloat(document.querySelector(`#input-totalValue-${i}`).value.split(',').join('.'))
-    totalPrice = totalPrice + rowValue
-    document.querySelector('#display-value').innerHTML = totalPrice
+    totalPrice = parseFloat(totalPrice) + rowValue
 }
 
 function subtractPrice(i) {
     let rowValue = parseFloat(document.querySelector(`#input-totalValue-${i}`).value.split(',').join('.'))
-    totalPrice = totalPrice - rowValue
-    document.querySelector('#display-value').innerHTML = totalPrice
+    totalPrice = parseFloat(totalPrice) - rowValue
+    showTotalPrice(totalPrice)
+}
+
+function showTotalPrice(totalPrice) {
+    let strTotalPrice = totalPrice.toString()
+    if (strTotalPrice.indexOf('.') > 0) {
+        let beforeComma = strTotalPrice.split('.')[0]
+        let afterComma = strTotalPrice.split('.')[1].split('').slice(0, 2).join('')
+        document.querySelector('#display-value').value = `${beforeComma},${afterComma}`
+    } else {
+        document.querySelector('#display-value').value = `${totalPrice},00`
+    }
 }
 
 function calculateTotalValue(qntd, price) {
-    if (price.indexOf('.') !== -1) {
-        let priceInt = parseInt(price.split('.')[0])
-        let priceFloat = parseInt(price.split('.')[1])
-        priceFloat = parseInt(qntd) * priceFloat
-        priceInt = parseInt(qntd) * priceInt
-        let extractNum = priceFloat.toString().split('').reverse().splice(2).reverse()
-        priceFloat = priceFloat.toString().split('').slice(-2).join('')
-        console.log(priceInt, extractNum, priceFloat)
-    } else {
-        console.log(',', false)
-    }
-
+    price = price.replace(',', '.')
+    let result = (parseInt(qntd) * parseFloat(price)).toFixed(2)
+    return result.replace('.', ',')
 }
 
 function deleteLine(i) {
@@ -139,6 +142,7 @@ function deleteLine(i) {
     document.querySelector(`#row${i}`).remove()
     arrayId.splice(arrayId.indexOf(i), 1)
 }
+
 
 function editLine(obj) {
 
@@ -159,6 +163,7 @@ function editLine(obj) {
     }
 
 }
+
 
 // Validation Bootstrap
 (function () {
@@ -211,3 +216,9 @@ function editLine(obj) {
 function _saveData(data, info) {
     let newData = {}
 }
+
+// Mask
+
+$(document).ready(() => {
+    $('.money').mask('0000000,00', { reverse: true })
+})
