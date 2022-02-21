@@ -1,3 +1,4 @@
+
 this.workflowCockpit = workflowCockpit({
     //     init: _loadData,
     onSubmit: _saveData,
@@ -140,6 +141,7 @@ function showTotalPrice(totalPrice) {
     }
 }
 
+
 function calculateTotalValue(qntd, price) {
     price = price.replace(',', '.')
     let result = (parseInt(qntd) * parseFloat(price)).toFixed(2)
@@ -230,4 +232,7 @@ function _saveData(data, info) {
 
 $(document).ready(() => {
     $('.money').mask('0000000,00', { reverse: true })
+    $('.cep').mask('00000-000')
+    $('.tel').mask('(00)00000-0000')
 })
+
