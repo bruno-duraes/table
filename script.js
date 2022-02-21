@@ -21,11 +21,12 @@ function getId() {
 }
 
 function insertsValidation() {
+    let requester = document.querySelector('#requester').value
     let quantity = document.querySelector('#qntd').value
     let description = document.querySelector('#name').value
     let unitValue = document.querySelector('#unit-value').value
 
-    if (!quantity || !description || !unitValue) {
+    if (!quantity || !description || !unitValue || !requester) {
         return ("invalid")
     } {
         return ("valid")
@@ -48,6 +49,7 @@ function addData() {
         let rowsLenght = document.querySelector('#tbody').children.length
 
         if (rowsLenght < 10) {
+            let requesterV = document.querySelector('#requester').value
             let qntdV = document.querySelector('#qntd').value
             let nameV = document.querySelector('#name').value
             let unitValueV = document.querySelector('#unit-value').value
@@ -57,6 +59,11 @@ function addData() {
 
             let row = document.createElement('tr')
             row.setAttribute('id', `row${idV}`)
+
+            let requester = document.createElement('td')
+            requester.innerHTML = `<div class="td-div" id="td-edit">
+        <input id="input-requester-${idV}" type="text" class="td-input requester form-control" value="${requesterV}" readonly required>
+        <div>`
 
             let qntd = document.createElement('td')
             qntd.innerHTML = `<div class="td-div" id="td-edit">
@@ -88,6 +95,7 @@ function addData() {
             btn.setAttribute('style', 'padding: 0')
 
             tbody.appendChild(row)
+            row.appendChild(requester)
             row.appendChild(qntd)
             row.appendChild(name)
             row.appendChild(unitValue)
@@ -98,11 +106,12 @@ function addData() {
             showTotalPrice(totalPrice)
 
             //  Limpando os campos
+            document.querySelector('#requester').value = ''
             document.querySelector('#qntd').value = ''
             document.querySelector('#name').value = ''
             document.querySelector('#unit-value').value = ''
 
-            document.querySelector('#qntd').focus()
+            document.querySelector('#requester').focus()
         } else {
             shootModal('modal-maxLines')
         }

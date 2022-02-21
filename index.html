@@ -18,7 +18,6 @@
 </head>
 
 <body>
-    <script src="https://www.cognitoforms.com/f/seamless.js" data-key="18vzYjhkMEi10YYKjWWt9g" data-form="2"></script>
     <!-- Modal -->
     <div class="modal fade" tabindex="-1" id="modal-insertValidation" data-bs-backdrop="static">
         <div class="modal-dialog">
@@ -94,57 +93,62 @@
     <!-- Content -->
 
     <form class="needs-validation" novalidate>
-        <button type="submit">sub</button>
-        <div class="form-register">
-            <div id="insert">
-                <label for="qntd" class="form-label">Quantidade</label><br>
-                <input type="text" id="qntd" min="0" data-mask="00000">
+        <>
+            <div class="form-register">
+                <div id="insert">
+                    <label for="qntd" class="form-label">Solicitante/CC</label><br>
+                    <input type="text" id="requester">
+                </div>
+                <div id="insert">
+                    <label for="qntd" class="form-label">Quantidade</label><br>
+                    <input type="text" id="qntd" min="0" data-mask="00000">
+                </div>
+                <div id="insert">
+                    <label for="name" class="form-label">Especificação</label><br>
+                    <input type="text" id="name">
+                </div>
+                <div id="insert">
+                    <label for="unit-value" class="form-label">Valor Unitario</label><br>
+                    <input type="text" id="unit-value" min="0" placeholder="0,00" class="money">
+                </div>
             </div>
-            <div id="insert">
-                <label for="name" class="form-label">Especificação</label><br>
-                <input type="text" id="name">
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary save-btn" type="button" onclick="addData()">Adicionar</button>
             </div>
-            <div id="insert">
-                <label for="unit-value" class="form-label">Valor Unitario</label><br>
-                <input type="text" id="unit-value" min="0" placeholder="0,00" class="money">
-            </div>
-        </div>
-        <div class="d-grid gap-2">
-            <button class="btn btn-primary save-btn" type="button" onclick="addData()">Adicionar</button>
-        </div>
-        <div class="table-form">
-            <table class="table table-striped caption-top">
-                <caption><i class="bi bi-cart3"></i> Pedido</caption>
-                <thead>
-                    <tr>
-                        <th scope="col" class="th-qntd">Qntd</th>
-                        <th scope="col" class="th-name">Especificação</th>
-                        <th scope="col" class="th-unit-value">Valor Unitario</th>
-                        <th scope="col" class="th-total-value">Valor Total</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="5" style="background-color: lightsteelblue;">
-                            <div id="order-total">
-                                <label for="display">Valor Total do Pedido</label>
-                                <div id="display">
-                                    R$<input type="text" class="money" id="display-value" value="0,00" readonly>
+            <div class="table-form">
+                <table class="table table-striped caption-top">
+                    <caption><i class="bi bi-cart3"></i> Pedido</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-requester">Solicitante/CC</th>
+                            <th scope="col" class="th-qntd">Qntd</th>
+                            <th scope="col" class="th-name">Especificação</th>
+                            <th scope="col" class="th-unit-value">Valor Unitario</th>
+                            <th scope="col" class="th-total-value">Valor Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="6" style="background-color: lightsteelblue;">
+                                <div id="order-total">
+                                    <label for="display">Valor Total do Pedido</label>
+                                    <div id="display">
+                                        R$<input type="text" class="money" id="display-value" value="0,00" readonly>
+                                    </div>
+                                    <div class="position-relative">
+                                        <label for="check-value">Confira o Valor</label>
+                                        <input type="checkbox" class="form-check-input" role="switch" id="check-value"
+                                            required>
+                                        <div class="invalid-tooltip">Confirme o valor!</div>
+                                    </div>
                                 </div>
-                                <div class="position-relative">
-                                    <label for="check-value">Confira o Valor</label>
-                                    <input type="checkbox" class="form-check-input" role="switch" id="check-value"
-                                        required>
-                                    <div class="invalid-tooltip">Confirme o valor!</div>
-                                </div>
-                            </div>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
     </form>
 
     <!-- /Content -->
@@ -152,7 +156,6 @@
 </body>
 
 <footer>
-
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
