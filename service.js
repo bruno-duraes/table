@@ -1,3 +1,5 @@
+
+
 function handleSuppliers() {
 
     let searchSuppliers = document.querySelector('#search-supplier-radio')
@@ -27,26 +29,46 @@ let requestOptions = {
     redirect: 'follow'
 };
 
-const data = fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
     .then(response => response.text())
 
     .then(result => {
         let suppliers = JSON.parse(result).tabela
+        arrSupp = suppliers
         console.log(suppliers)
-
 
         for (let i = 0; i < suppliers.length; i++) {
             const supplier = suppliers[i];
             const { nomfor } = supplier
 
             let option = document.createElement('option')
-
-            // preencher o select com os nomes dos fornecedores
+            option.setAttribute('id', `supplier-${i}`)
+            option.innerHTML = nomfor
+            let select = document.querySelector('#select-supplier')
+            select.appendChild(option)
         }
-
 
     })
 
     .catch(error => console.log('error', error))
 
+
+function handleSelectSupplier(ev) {
+
+    fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+
+        .then(response => response.text())
+
+        .then(result => {
+            let suppliers = JSON.parse(result).tabela
+            console.log(suppliers)
+
+            console.log(ev.options.selected)
+
+        })
+
+        .catch(error => console.log('error', error))
+
+
+}

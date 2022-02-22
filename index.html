@@ -135,122 +135,153 @@
                 </div>
             </div>
             <div class="supplier-area">
-                <div id="search-supplier">
-                    <div class="row">
-                        <div class="col-3">
-                            <select id="select-supplier" class="form-select">
-                                <option selected>Selecione o Fornecedor</option>
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <select class="form-select">
-                                <option selected>Selecione o Fornecedor</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
 
-                <div id="register-supplier" hidden>
+                <div id="search-supplier">
                     <div class="row justify-content-md-center">
                         <div class="col-3">
                             <label class="form-label">Nome do Fornecedor</label>
-                            <input type="text" class="form-control" required>
+                            <select id="select-supplier" class="form-select" onchange="handleSelectSupplier(this)"
+                                required>
+                                <option>Selecione o Fornecedor</option>
+                            </select>
                         </div>
                         <div class="col-cep">
                             <label class="form-label">CEP</label>
-                            <input type="text" class="form-control cep" placeholder="00000-000" required>
+                            <input type="text" id="supplier-input-cep" class="form-control cep" placeholder="00000-000"
+                                required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Cidade</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" id="supplier-input-city" class="form-control" required readonly>
                         </div>
                         <div class="col-uf">
                             <label class="form-label">UF</label>
-                            <input type="text" class="form-control" maxlength="2" placeholder="XX" required>
+                            <input type="text" id="supplier-input-uf" class="form-control" maxlength="2"
+                                placeholder="XX" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Endereço</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" id="supplier-input-adress" class="form-control" required readonly>
                         </div>
                     </div><br>
                     <div class="row justify-content-md-center">
                         <div class="col-3">
                             <label class="form-label">Bairro</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" id="supplier-input-neighborhood" class="form-control" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" required>
+                            <input type="email" id="supplier-input-email" class="form-control" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Telefone</label>
-                            <input type="email" class="form-control tel" placeholder="(00)00000-0000" required>
+                            <input type="email" id="supplier-input-tel" class="form-control tel"
+                                placeholder="(00)00000-0000" required readonly>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="content-divisor">
-                <i class="bi bi-cart3"></i>
-                <span class="hr-label">Pedido</span>
-                <hr>
+            <div id="register-supplier" hidden>
+                <div class="row justify-content-md-center">
+                    <div class="col-3">
+                        <label class="form-label">Nome do Fornecedor</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="col-cep">
+                        <label class="form-label">CEP</label>
+                        <input type="text" class="form-control cep" placeholder="00000-000" required>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Cidade</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="col-uf">
+                        <label class="form-label">UF</label>
+                        <input type="text" class="form-control" maxlength="2" placeholder="XX" required>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Endereço</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                </div><br>
+                <div class="row justify-content-md-center">
+                    <div class="col-3">
+                        <label class="form-label">Bairro</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label">Telefone</label>
+                        <input type="email" class="form-control tel" placeholder="(00)00000-0000" required>
+                    </div>
+                </div>
             </div>
+    </div>
 
-            <div class="input-group form-register">
-                <div id="insert">
-                    <label for="qntd" class="form-label">Solicitante/CC</label><br>
-                    <input type="text" id="requester">
-                </div>
-                <div id="insert">
-                    <label for="qntd" class="form-label">Quantidade</label><br>
-                    <input type="text" id="qntd" min="0" data-mask="00000">
-                </div>
-                <div id="insert">
-                    <label for="name" class="form-label">Especificação</label><br>
-                    <input type="text" id="name">
-                </div>
-                <div id="insert">
-                    <label for="unit-value" class="form-label">Valor Unitario</label><br>
-                    <input type="text" id="unit-value" min="0" placeholder="0,00" class="money">
-                </div>
-            </div>
-            <div class="d-grid gap-2">
-                <button class="btn btn-primary save-btn" type="button" onclick="addData()">Adicionar</button>
-            </div>
-            <div class="table-form">
-                <table class="table table-striped caption-top">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="th-requester">Solicitante/CC</th>
-                            <th scope="col" class="th-qntd">Qntd</th>
-                            <th scope="col" class="th-name">Especificação</th>
-                            <th scope="col" class="th-unit-value">Valor Unitario</th>
-                            <th scope="col" class="th-total-value">Valor Total</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="6" style="background-color: lightsteelblue;">
-                                <div id="order-total">
-                                    <label for="display">Valor Total do Pedido</label>
-                                    <div id="display">
-                                        R$<input type="text" class="money" id="display-value" value="0,00" readonly>
-                                    </div>
-                                    <div class="position-relative">
-                                        <label for="check-value">Confira o Valor</label>
-                                        <input type="checkbox" class="form-check-input" role="switch" id="check-value"
-                                            required>
-                                        <div class="invalid-tooltip">Confirme o valor!</div>
-                                    </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </form>
+    <div class="content-divisor">
+        <i class="bi bi-cart3"></i>
+        <span class="hr-label">Pedido</span>
+        <hr>
+    </div>
+
+    <div class="input-group form-register">
+        <div id="insert">
+            <label for="qntd" class="form-label">Solicitante/CC</label><br>
+            <input type="text" id="requester">
+        </div>
+        <div id="insert">
+            <label for="qntd" class="form-label">Quantidade</label><br>
+            <input type="text" id="qntd" min="0" data-mask="00000">
+        </div>
+        <div id="insert">
+            <label for="name" class="form-label">Especificação</label><br>
+            <input type="text" id="name">
+        </div>
+        <div id="insert">
+            <label for="unit-value" class="form-label">Valor Unitario</label><br>
+            <input type="text" id="unit-value" min="0" placeholder="0,00" class="money">
+        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary save-btn" type="button" onclick="addData()">Adicionar</button>
+    </div>
+    <div class="table-form">
+        <table class="table table-striped caption-top">
+            <thead>
+                <tr>
+                    <th scope="col" class="th-requester">Solicitante/CC</th>
+                    <th scope="col" class="th-qntd">Qntd</th>
+                    <th scope="col" class="th-name">Especificação</th>
+                    <th scope="col" class="th-unit-value">Valor Unitario</th>
+                    <th scope="col" class="th-total-value">Valor Total</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="6" style="background-color: lightsteelblue;">
+                        <div id="order-total">
+                            <label for="display">Valor Total do Pedido</label>
+                            <div id="display">
+                                R$<input type="text" class="money" id="display-value" value="0,00" readonly>
+                            </div>
+                            <div class="position-relative">
+                                <label for="check-value">Confira o Valor</label>
+                                <input type="checkbox" class="form-check-input" role="switch" id="check-value" required>
+                                <div class="invalid-tooltip">Confirme o valor!</div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    </form>
     </div>
     <!-- /Content -->
     <script src="service.js"></script>
