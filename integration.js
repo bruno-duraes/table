@@ -1,10 +1,24 @@
 this.workflowCockpit = workflowCockpit({
     init: _init,
     onSubmit: _saveData,
-    onError: _rollback
+    onError: _rollback,
 });
 
 function _init(data, info) {
+    console.log('data', data)
+    info.getUserData().then(
+        (user) => {
+            console.log('User:', user)
+        }
+    ).then(() => {
+        info.getPlatformData().then(
+            (platformData) => { console.log('Dados da plataforma:', platformData) }
+        )
+    })
+
+    if (!info.isRequestNew() && Array.isArray(data)) {
+
+    }
 
 }
 
@@ -12,7 +26,7 @@ function _saveData() {
 
     let newData = {}
 
-    newData.nomfor = searchOrRegister().querySelector('.nom-For').value
+    newData.nomFor = searchOrRegister().querySelector('.nom-For').value
     newData.cepFor = searchOrRegister().querySelector('.cep-For').value
     newData.cidFor = searchOrRegister().querySelector('.cid-For').value
     newData.ufFor = searchOrRegister().querySelector('.uf-For').value
