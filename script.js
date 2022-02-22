@@ -1,10 +1,4 @@
 
-this.workflowCockpit = workflowCockpit({
-    //     init: _loadData,
-    onSubmit: _saveData,
-    //     onError: _rollback
-});
-
 let arrayId = []
 let totalPrice = document.querySelector('#display-value').value
 
@@ -175,6 +169,13 @@ function editLine(obj) {
 
 }
 
+function handleChecked(el) {
+    if (el.checked) {
+        el.setAttribute('class', 'form-check-input is-valid')
+    } else if (!el.checked) {
+        el.setAttribute('class', 'form-check-input is-invalid')
+    }
+}
 
 // Validation Bootstrap
 (function () {
@@ -199,6 +200,7 @@ function editLine(obj) {
         }
     }
 
+    let checkbox = document.querySelector('#check-value')
 
     var forms = document.querySelectorAll('.needs-validation')
 
@@ -215,6 +217,7 @@ function editLine(obj) {
                         event.stopPropagation()
                     }
 
+                    handleChecked(checkbox)
                     disableAttributeReadonly()
 
                     form.classList.add('was-validated')
@@ -223,13 +226,7 @@ function editLine(obj) {
         })
 })()
 
-// Senior
-function _saveData(data, info) {
-    let newData = {}
-}
-
 // Mask
-
 $(document).ready(() => {
     $('.money').mask('0000000,00', { reverse: true })
     $('.cep').mask('00000-000')

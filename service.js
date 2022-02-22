@@ -1,18 +1,42 @@
-
-
 function handleSuppliers() {
-
     let searchSuppliers = document.querySelector('#search-supplier-radio')
     let registerSuppliers = document.querySelector('#register-supplier-radio')
     let registerSupplierArea = document.querySelector('#register-supplier')
-
+    let searchSupplierArea = document.querySelector('#search-supplier')
+    let registerInputs = registerSupplierArea.querySelectorAll('input')
+    let searchInputs = searchSupplierArea.querySelectorAll('input')
 
     if (searchSuppliers.checked) {
-        console.log('buscar')
         registerSupplierArea.setAttribute('hidden', 'hidden')
+        searchSupplierArea.removeAttribute('hidden')
+
+        // desabilitando os inputs do cadastro de novo fornecedor
+        for (let i = 0; i < registerInputs.length; i++) {
+            const element = registerInputs[i];
+            element.setAttribute('disabled', 'disabled')
+        }
+
+        // habilitando os inputs da busca por fonecedor no sistema
+        for (let i = 0; i < searchInputs.length; i++) {
+            const element = searchInputs[i];
+            element.removeAttribute('disabled')
+        }
     } else if (registerSuppliers.checked) {
-        console.log('registrar')
         registerSupplierArea.removeAttribute('hidden')
+        searchSupplierArea.setAttribute('hidden', 'hidden')
+
+        // desabilitando os inputs do cadastro de novo fornecedor
+        searchSupplierArea.querySelector('select').setAttribute('disabled', 'disabled')
+        for (let i = 0; i < searchInputs.length; i++) {
+            const element = searchInputs[i];
+            element.setAttribute('disabled', 'disabled')
+        }
+
+        // habilitando os inputs do cadastro de novo fornecedor
+        for (let i = 0; i < registerInputs.length; i++) {
+            const element = registerInputs[i];
+            element.removeAttribute('disabled')
+        }
     }
 }
 
@@ -21,7 +45,6 @@ myHeaders.append("user", "bruno.dbs");
 myHeaders.append("pass", "Teste@2021@");
 myHeaders.append("encryptionType", "0");
 myHeaders.append("Content-Type", "aplication/json");
-myHeaders.append("Authorization", "OdHaofBjUmmflLCwqzmbYppt9yJKZ8aT")
 
 let requestOptions = {
     method: 'GET',
@@ -62,10 +85,17 @@ function handleSelectSupplier(ev) {
 
         .then(result => {
             let suppliers = JSON.parse(result).tabela
-            console.log(suppliers)
+            const selectedIndex = ev.options[ev.selectedIndex].index - 1
 
-            console.log(ev.options.selected)
+            let selectedSupplier = suppliers[selectedIndex]
 
+            document.querySelector('#supplier-input-cep').value = selectedSupplier.cepfor
+            document.querySelector('#supplier-input-city').value = selectedSupplier.cidfor
+            document.querySelector('#supplier-input-uf').value = selectedSupplier.sigufs
+            document.querySelector('#supplier-input-address').value = selectedSupplier.endfor
+            document.querySelector('#supplier-input-neighborhood').value = selectedSupplier.baifor
+            document.querySelector('#supplier-input-email').value = selectedSupplier.intnet
+            document.querySelector('#supplier-input-tel').value = selectedSupplier.fonfor
         })
 
         .catch(error => console.log('error', error))
