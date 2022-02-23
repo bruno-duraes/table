@@ -41,42 +41,59 @@ function _init(data, info) {
             searchOrRegister().querySelector('.email-For').value = map.get('emailFor')
             searchOrRegister().querySelector('.tel-For').value = map.get('telFor')
 
-
+            let i = 1
+            while (map.get(`tabSol-${i}`) !== undefined) {
+                document.querySelector('#requester').value = map.get(`tabSol-${i}`)
+                document.querySelector('#qntd').value = map.get(`tabQnt-${i}`)
+                document.querySelector('#name').value = map.get(`tabDes-${i}`)
+                document.querySelector('#unit-value').value = map.get(`tabUnV-${i}`)
+                addData()
+                i++
+            }
         }
     })
 
 }
 
+
+
 function _saveData() {
-    isFormValid()
 
-    let newData = {}
+    let checkbox = document.querySelector('#check-value').checked
+    console.log(checkbox)
+    if (!checkbox) {
+        console.log('erro!!')
+    } else {
 
-    newData.inputRadio = inputRadioSearch()
-    newData.selSet = document.querySelector('#setor-select').value
-    newData.nomFor = searchOrRegister().querySelector('.nom-For').value
-    newData.cepFor = searchOrRegister().querySelector('.cep-For').value
-    newData.cidFor = searchOrRegister().querySelector('.cid-For').value
-    newData.ufFor = searchOrRegister().querySelector('.uf-For').value
-    newData.endFor = searchOrRegister().querySelector('.end-For').value
-    newData.baiFor = searchOrRegister().querySelector('.bai-For').value
-    newData.emailFor = searchOrRegister().querySelector('.email-For').value
-    newData.telFor = searchOrRegister().querySelector('.tel-For').value
 
-    // capturando os valores da tabela
-    let tableRows = document.querySelector('#tbody').children
-    for (let i = 0; i < tableRows.length; i++) {
-        let id = i + 1
-        newData[`tabSol-${id}`] = document.querySelector(`#input-requester-${id}`).value
-        newData[`tabQnt-${id}`] = document.querySelector(`#input-qnt-${id}`).value
-        newData[`tabDes-${id}`] = document.querySelector(`#input-name-${id}`).value
-        newData[`tabUnV-${id}`] = document.querySelector(`#input-unitValue-${id}`).value
-        newData[`tabToV-${id}`] = document.querySelector(`#input-totalValue-${id}`).value
+        let newData = {}
+
+        newData.inputRadio = inputRadioSearch()
+        newData.selSet = document.querySelector('#setor-select').value
+        newData.nomFor = searchOrRegister().querySelector('.nom-For').value
+        newData.cepFor = searchOrRegister().querySelector('.cep-For').value
+        newData.cidFor = searchOrRegister().querySelector('.cid-For').value
+        newData.ufFor = searchOrRegister().querySelector('.uf-For').value
+        newData.endFor = searchOrRegister().querySelector('.end-For').value
+        newData.baiFor = searchOrRegister().querySelector('.bai-For').value
+        newData.emailFor = searchOrRegister().querySelector('.email-For').value
+        newData.telFor = searchOrRegister().querySelector('.tel-For').value
+
+        // capturando os valores da tabela
+        let tableRows = document.querySelector('#tbody').children
+        for (let i = 0; i < tableRows.length; i++) {
+            let id = i + 1
+            newData[`tabSol-${id}`] = document.querySelector(`#input-requester-${id}`).value
+            newData[`tabQnt-${id}`] = document.querySelector(`#input-qnt-${id}`).value
+            newData[`tabDes-${id}`] = document.querySelector(`#input-name-${id}`).value
+            newData[`tabUnV-${id}`] = document.querySelector(`#input-unitValue-${id}`).value
+            newData[`tabToV-${id}`] = document.querySelector(`#input-totalValue-${id}`).value
+        }
+        newData.tabTot = document.querySelector('#display-value').value
+
+        console.log(newData)
+        return { formData: newData }
     }
-    newData.tabTot = document.querySelector('#display-value').value
-
-    console.log(newData)
-    return { formData: newData }
 }
 
 function searchOrRegister() {
@@ -131,28 +148,40 @@ function isFormValid() {
     }
 
     let checkbox = document.querySelector('#check-value')
+    var form = document.querySelector('.needs-validation')
+    form.classList.add('was-validated')
 
-    var forms = document.querySelectorAll('.needs-validation')
 
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
+    if (tableLengthValidation() == 'empty') {
+        shootModal('modal-tableLenghtValidation')
+    } else {
 
-                if (tableLengthValidation() == 'empty') {
-                    event.preventDefault()
-                    shootModal('modal-tableLenghtValidation')
-                } else {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-
-                        handleChecked(checkbox)
-                        disableAttributeReadonly()
-                        form.classList.add('was-validated')
-                        return (false)
-                    }
-                }
-            }, false)
-        })
+        handleChecked(checkbox)
+        disableAttributeReadonly()
+        return (false)
+    }
 }
 
+// Disabling form submissions if there are invalid fields
+(function () {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener(
+            "submit",
+            function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add("was-validated");
+            },
+            false
+        );
+    });
+})();

@@ -9,7 +9,7 @@ function handleSuppliers() {
     if (searchSuppliers.checked) {
         registerSupplierArea.setAttribute('hidden', 'hidden')
         searchSupplierArea.removeAttribute('hidden')
-
+        document.querySelector('#select-supplier').removeAttribute('disabled')
         // desabilitando os inputs do cadastro de novo fornecedor
         for (let i = 0; i < registerInputs.length; i++) {
             const element = registerInputs[i];

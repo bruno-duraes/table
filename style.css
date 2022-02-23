@@ -37,7 +37,7 @@ tbody{
     justify-content: center;
 }
 .table-form table{
-    width: 90vw;
+    width: 100vw;
 }
 
 .td-input.form-control{
@@ -45,6 +45,10 @@ tbody{
     border: none;
     height: 30px;
     padding-inline: 3px;
+}
+
+.td-input.name{
+    width: auto;
 }
 
 .qntd,.th-qntd{
