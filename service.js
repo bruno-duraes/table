@@ -40,63 +40,63 @@ function handleSuppliers() {
     }
 }
 
-// let myHeaders = new Headers();
-// myHeaders.append("user", "bruno.dbs");
-// myHeaders.append("pass", "Teste@2021@");
-// myHeaders.append("encryptionType", "0");
-// myHeaders.append("Content-Type", "aplication/json");
+let myHeaders = new Headers();
+myHeaders.append("user", "bruno.dbs");
+myHeaders.append("pass", "Teste@2021@");
+myHeaders.append("encryptionType", "0");
+myHeaders.append("Content-Type", "aplication/json");
 
-// let requestOptions = {
-//     method: 'GET',
-//     headers: myHeaders,
-//     redirect: 'follow'
-// };
+let requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+};
 
-// fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
-//     .then(response => response.text())
+    .then(response => response.text())
 
-//     .then(result => {
-//         let suppliers = JSON.parse(result).tabela
-//         arrSupp = suppliers
-//         console.log(suppliers)
+    .then(result => {
+        let suppliers = JSON.parse(result).tabela
+        arrSupp = suppliers
+        console.log(suppliers)
 
-//         for (let i = 0; i < suppliers.length; i++) {
-//             const supplier = suppliers[i];
-//             const { nomfor } = supplier
+        for (let i = 0; i < suppliers.length; i++) {
+            const supplier = suppliers[i];
+            const { nomfor } = supplier
 
-//             let option = document.createElement('option')
-//             option.setAttribute('id', `supplier-${i}`)
-//             option.innerHTML = nomfor
-//             let select = document.querySelector('#select-supplier')
-//             select.appendChild(option)
-//         }
+            let option = document.createElement('option')
+            option.setAttribute('id', `supplier-${i}`)
+            option.innerHTML = nomfor
+            let select = document.querySelector('#select-supplier')
+            select.appendChild(option)
+        }
 
-//     })
+    })
 
-//     .catch(error => console.log('error', error))
+    .catch(error => console.log('error', error))
 
 
-// function handleSelectSupplier(ev) {
+function handleSelectSupplier(ev) {
 
-//     fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+    fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
-//         .then(response => response.text())
+        .then(response => response.text())
 
-//         .then(result => {
-//             let suppliers = JSON.parse(result).tabela
-//             const selectedIndex = ev.options[ev.selectedIndex].index - 1
+        .then(result => {
+            let suppliers = JSON.parse(result).tabela
+            const selectedIndex = ev.options[ev.selectedIndex].index - 1
 
-//             let selectedSupplier = suppliers[selectedIndex]
+            let selectedSupplier = suppliers[selectedIndex]
 
-//             document.querySelector('#supplier-input-cep').value = selectedSupplier.cepfor
-//             document.querySelector('#supplier-input-city').value = selectedSupplier.cidfor
-//             document.querySelector('#supplier-input-uf').value = selectedSupplier.sigufs
-//             document.querySelector('#supplier-input-address').value = selectedSupplier.endfor
-//             document.querySelector('#supplier-input-neighborhood').value = selectedSupplier.baifor
-//             document.querySelector('#supplier-input-email').value = selectedSupplier.intnet
-//             document.querySelector('#supplier-input-tel').value = selectedSupplier.fonfor
-//         })
+            document.querySelector('#supplier-input-cep').value = selectedSupplier.cepfor
+            document.querySelector('#supplier-input-city').value = selectedSupplier.cidfor
+            document.querySelector('#supplier-input-uf').value = selectedSupplier.sigufs
+            document.querySelector('#supplier-input-address').value = selectedSupplier.endfor
+            document.querySelector('#supplier-input-neighborhood').value = selectedSupplier.baifor
+            document.querySelector('#supplier-input-email').value = selectedSupplier.intnet
+            document.querySelector('#supplier-input-tel').value = selectedSupplier.fonfor
+        })
 
-//         .catch(error => console.log('error', error))
-// }
+        .catch(error => console.log('error', error))
+}

@@ -177,55 +177,6 @@ function handleChecked(el) {
     }
 }
 
-// Validation Bootstrap
-(function () {
-    'use strict'
-
-    function disableAttributeReadonly() {
-        for (let i = 0; i < arrayId.length; i++) {
-            const tr = document.querySelector(`#row${arrayId[i]}`)
-            for (let x = 0; x < 3; x++) {
-                const input = tr.children[x].querySelector('input');
-                input.removeAttribute('readonly')
-            }
-        }
-    }
-
-    function tableLengthValidation() {
-
-        let rows = document.querySelector('#tbody').children.length
-
-        if (rows == 0) {
-            return ('empty')
-        }
-    }
-
-    let checkbox = document.querySelector('#check-value')
-
-    var forms = document.querySelectorAll('.needs-validation')
-
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-
-                if (tableLengthValidation() == 'empty') {
-                    event.preventDefault()
-                    shootModal('modal-tableLenghtValidation')
-                } else {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    handleChecked(checkbox)
-                    disableAttributeReadonly()
-
-                    form.classList.add('was-validated')
-                }
-            }, false)
-        })
-})()
-
 // Mask
 $(document).ready(() => {
     $('.money').mask('0000000,00', { reverse: true })
