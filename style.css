@@ -48,7 +48,7 @@ tbody{
 }
 
 .td-input.name{
-    width: auto;
+    width: 500px;
 }
 
 .qntd,.th-qntd{
@@ -194,5 +194,9 @@ hr{
     width: 8em;
 }
 .supplier-area .col-uf{
-    width: 4.5em;
+    width: 6em;
+}
+
+#check-value{
+    border: none;
 }

@@ -5,6 +5,7 @@ this.workflowCockpit = workflowCockpit({
 });
 
 function _init(data, info) {
+    console.log("Informações do processo:", data)
     const { intialVariables } = data.loadContext
     console.log(intialVariables)
     info.getUserData().then(
@@ -16,6 +17,7 @@ function _init(data, info) {
             (platformData) => { console.log('Dados da plataforma:', platformData) }
         )
     })
+
     info.getInfoFromProcessVariables().then((processVar) => {
         if (!info.isRequestNew() && Array.isArray(processVar)) {
 
@@ -24,9 +26,8 @@ function _init(data, info) {
             console.log('Loading...', map)
 
             // Preenchendo os campos do formulario
-            let inputRadio = map.get('inputRadio')
-            if (inputRadio == 'false') {
-                console.log()
+            let busFor = map.get('buFor')
+            if (!busFor) {
                 document.querySelector('#register-supplier-radio').setAttribute('checked', 'checked')
                 handleSuppliers()
             }
@@ -50,51 +51,86 @@ function _init(data, info) {
                 addData()
                 i++
             }
+
+            formReadOnly()
         }
     })
 
-}
+    function formReadOnly() {
+        info.getTaskData().then((data) => {
+            let { taskName } = data
 
+            handleChecked()
+            let searchInputRadio = document.querySelector('#search-supplier-radio')
+            let registerInputRadio = document.querySelector('#register-supplier-radio')
+
+            searchInputRadio.checked ? registerInputRadio.setAttribute('disabled', 'disabled') : searchInputRadio.setAttribute('disabled', 'disabled')
+
+            document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
+            document.querySelector('#setor-select').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.nom-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.cep-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.cid-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.uf-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.end-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.bai-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.email-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.tel-For').setAttribute('readonly', 'readonly')
+            Array.from(document.querySelectorAll('#insert input')).map((el) => { el.setAttribute('disabled', 'disabled') })
+            Array.from(document.querySelectorAll('.btn')).map((el) => { el.setAttribute('disabled', 'disabled') })
+            Array.from(document.querySelectorAll('table i')).map((el) => { el.remove() })
+
+        })
+    }
+
+}
 
 
 function _saveData() {
 
-    let checkbox = document.querySelector('#check-value').checked
-    console.log(checkbox)
-    if (!checkbox) {
-        console.log('erro!!')
-    } else {
+    console.log('Formulario Válido?', isFormValid())
 
-
-        let newData = {}
-
-        newData.inputRadio = inputRadioSearch()
-        newData.selSet = document.querySelector('#setor-select').value
-        newData.nomFor = searchOrRegister().querySelector('.nom-For').value
-        newData.cepFor = searchOrRegister().querySelector('.cep-For').value
-        newData.cidFor = searchOrRegister().querySelector('.cid-For').value
-        newData.ufFor = searchOrRegister().querySelector('.uf-For').value
-        newData.endFor = searchOrRegister().querySelector('.end-For').value
-        newData.baiFor = searchOrRegister().querySelector('.bai-For').value
-        newData.emailFor = searchOrRegister().querySelector('.email-For').value
-        newData.telFor = searchOrRegister().querySelector('.tel-For').value
-
-        // capturando os valores da tabela
-        let tableRows = document.querySelector('#tbody').children
-        for (let i = 0; i < tableRows.length; i++) {
-            let id = i + 1
-            newData[`tabSol-${id}`] = document.querySelector(`#input-requester-${id}`).value
-            newData[`tabQnt-${id}`] = document.querySelector(`#input-qnt-${id}`).value
-            newData[`tabDes-${id}`] = document.querySelector(`#input-name-${id}`).value
-            newData[`tabUnV-${id}`] = document.querySelector(`#input-unitValue-${id}`).value
-            newData[`tabToV-${id}`] = document.querySelector(`#input-totalValue-${id}`).value
-        }
-        newData.tabTot = document.querySelector('#display-value').value
-
-        console.log(newData)
-        return { formData: newData }
+    if (!isFormValid()) {
+        shootAlert()
+        shootModal('modal-formInvalid')
+        document.querySelector('.needs-validation').classList.add("was-validated")
+        throw console.error('Formulário Inválido!')
     }
+
+
+    let newData = {}
+
+    newData.busFor = inputRadioSearch()
+    newData.selSet = document.querySelector('#setor-select').value
+    newData.nomFor = searchOrRegister().querySelector('.nom-For').value
+    newData.cepFor = searchOrRegister().querySelector('.cep-For').value
+    newData.cidFor = searchOrRegister().querySelector('.cid-For').value
+    newData.ufFor = searchOrRegister().querySelector('.uf-For').value
+    newData.endFor = searchOrRegister().querySelector('.end-For').value
+    newData.baiFor = searchOrRegister().querySelector('.bai-For').value
+    newData.emailFor = searchOrRegister().querySelector('.email-For').value
+    newData.telFor = searchOrRegister().querySelector('.tel-For').value
+
+    // capturando os valores da tabela
+    let tableRows = document.querySelector('#tbody').children
+    for (let i = 0; i < tableRows.length; i++) {
+        let id = i + 1
+        newData[`tabSol-${id}`] = document.querySelector(`#input-requester-${id}`).value
+        newData[`tabQnt-${id}`] = document.querySelector(`#input-qnt-${id}`).value
+        newData[`tabDes-${id}`] = document.querySelector(`#input-name-${id}`).value
+        newData[`tabUnV-${id}`] = document.querySelector(`#input-unitValue-${id}`).value
+        newData[`tabToV-${id}`] = document.querySelector(`#input-totalValue-${id}`).value
+    }
+    newData.tabTot = document.querySelector('#display-value').value
+
+    console.log(newData)
+    return {
+        formData: newData
+    }
+
 }
+
+
 
 function searchOrRegister() {
     let searchRadio = document.querySelector('#search-supplier-radio')
@@ -121,67 +157,62 @@ function inputRadioSearch() {
 }
 
 function _rollback() {
-
 }
 
-// Validation
+function shootAlert() {
+
+    let btn = document.querySelector('#check-btn')
+    let checkbox = document.querySelector('#check-value').checked
+
+    if (!checkbox) {
+        btn.setAttribute('class', 'btn btn-danger')
+        return (
+            document.querySelector('#alert-display').innerHTML =
+            `<br>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        Confirme os itens da tabela!!
+        <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
+    </div>`)
+    }
+}
+
+
 function isFormValid() {
-    'use strict'
 
-    function disableAttributeReadonly() {
-        for (let i = 0; i < arrayId.length; i++) {
-            const tr = document.querySelector(`#row${arrayId[i]}`)
-            for (let x = 0; x < 3; x++) {
-                const input = tr.children[x].querySelector('input');
-                input.removeAttribute('readonly')
-            }
-        }
+
+    let dataValid = []
+
+    dataValid.push(document.querySelector('#setor-select').value)
+    dataValid.push(searchOrRegister().querySelector('.nom-For').value)
+    dataValid.push(searchOrRegister().querySelector('.cep-For').value)
+    dataValid.push(searchOrRegister().querySelector('.cid-For').value)
+    dataValid.push(searchOrRegister().querySelector('.uf-For').value)
+    dataValid.push(searchOrRegister().querySelector('.end-For').value)
+    dataValid.push(searchOrRegister().querySelector('.bai-For').value)
+    dataValid.push(searchOrRegister().querySelector('.email-For').value)
+    dataValid.push(searchOrRegister().querySelector('.tel-For').value)
+
+    let tableRows = document.querySelector('#tbody').children
+    for (let i = 0; i < tableRows.length; i++) {
+        let id = i + 1
+        dataValid.push(document.querySelector(`#input-requester-${id}`).value)
+        dataValid.push(document.querySelector(`#input-qnt-${id}`).value)
+        dataValid.push(document.querySelector(`#input-name-${id}`).value)
+        dataValid.push(document.querySelector(`#input-unitValue-${id}`).value)
+        dataValid.push(document.querySelector(`#input-totalValue-${id}`).value)
     }
 
-    function tableLengthValidation() {
+    let dataInvalid = dataValid.filter((value) => { return value == '' })
+    let isChecked = document.querySelector('#check-value').checked
 
-        let rows = document.querySelector('#tbody').children.length
-
-        if (rows == 0) {
-            return ('empty')
-        }
+    if (!isChecked) {
+        document.querySelector('#check-value').setAttribute('class', 'form-check-input is-invalid')
+        return false
+    }
+    if (dataInvalid.length > 0) {
+        return false
     }
 
-    let checkbox = document.querySelector('#check-value')
-    var form = document.querySelector('.needs-validation')
-    form.classList.add('was-validated')
-
-
-    if (tableLengthValidation() == 'empty') {
-        shootModal('modal-tableLenghtValidation')
-    } else {
-
-        handleChecked(checkbox)
-        disableAttributeReadonly()
-        return (false)
-    }
+    return true
 }
-
-// Disabling form submissions if there are invalid fields
-(function () {
-    "use strict";
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll(".needs-validation");
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener(
-            "submit",
-            function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                form.classList.add("was-validated");
-            },
-            false
-        );
-    });
-})();

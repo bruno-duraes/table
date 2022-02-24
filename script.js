@@ -169,18 +169,25 @@ function editLine(obj) {
 
 }
 
-function handleChecked(el) {
-    if (el.checked) {
+function handleChecked() {
+    let btn = document.querySelector('#check-btn')
+    let rows = document.querySelector('#tbody').children.length
+    let el = document.querySelector('#check-value')
+    if (rows == 0) {
+        shootModal('modal-tableLengthValidation')
+        btn.setAttribute('class', 'btn btn-danger')
+    } else {
         el.setAttribute('class', 'form-check-input is-valid')
-    } else if (!el.checked) {
-        el.setAttribute('class', 'form-check-input is-invalid')
+        el.setAttribute('checked', 'checked')
+        btn.setAttribute('class', 'btn btn-success')
     }
+
 }
 
 // Mask
 $(document).ready(() => {
     $('.money').mask('0000000,00', { reverse: true })
-    $('.cep').mask('00000-000')
+    $('.cep').mask('00000000')
     $('.tel').mask('(00)00000-0000')
 })
 

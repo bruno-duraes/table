@@ -52,7 +52,7 @@ let requestOptions = {
     redirect: 'follow'
 };
 
-fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+fetch("https://seniormsc.mainhardt.com.br:8181/API/G5Rest?server=https://seniormsc.mainhardt.com.br:8181&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
     .then(response => response.text())
 
@@ -79,7 +79,7 @@ fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc
 
 function handleSelectSupplier(ev) {
 
-    fetch("http://seniormsc.mainhardt.com.br:8888/API/G5Rest?server=http://seniormsc.mainhardt.com.br:8888&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
+    fetch("https://seniormsc.mainhardt.com.br:8181/API/G5Rest?server=https://seniormsc.mainhardt.com.br:8181&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
         .then(response => response.text())
 

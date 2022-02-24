@@ -67,8 +67,8 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" id="modal-tableLenghtValidation" data-bs-backdrop="static">
-            <div class="modal-dialog">
+        <div class="modal fade" tabindex="-1" id="modal-tableLengthValidation" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content my-modal-content">
                     <div class="my-modal-header">
                         <div class="icon-box">
@@ -78,7 +78,7 @@
                     <div class="my-modal-body text-center">
                         <span class="modal-title">Ops!!</span>
                         <p>
-                            Você não pode enviar uma tabela vazia.
+                            Você não pode enviar uma tabela vazia!!
                         </p>
                     </div>
                     <div class="my-modal-footer d-grid gap-2">
@@ -89,10 +89,40 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" tabindex="-1" id="modal-formInvalid" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content my-modal-content">
+                    <div class="my-modal-header">
+                        <div class="icon-box">
+                            <i class="bi bi-exclamation-octagon"></i>
+                        </div>
+                    </div>
+                    <div class="my-modal-body text-center">
+                        <span class="modal-title">Ops!!</span>
+                        <p>
+                        <h5>Formulário invalido!</h5>
+                        Por Favor, verifique os campos e tente novamente!
+                        </p>
+                    </div>
+                    <div class="my-modal-footer d-grid gap-2">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            <i class="bi bi-hand-thumbs-up"></i> Entendi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </Modal>
     <!-- Content -->
     <div class="container-fluid">
-        <form class="was-validated">
+        <form class="needs-validation" novalidate>
+
+            <div id="alert-display">
+
+            </div>
+
 
             <div class="content-divisor">
                 <i class="bi bi-clipboard2-check"></i>
@@ -148,7 +178,7 @@
                         <div class="col-cep">
                             <label class="form-label">CEP</label>
                             <input type="text" id="supplier-input-cep" class="form-control cep cep-For"
-                                placeholder="00000-000" required readonly>
+                                placeholder="00000000" minlength="8" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Cidade</label>
@@ -157,7 +187,7 @@
                         <div class="col-uf">
                             <label class="form-label">UF</label>
                             <input type="text" id="supplier-input-uf" class="form-control uf-For" maxlength="2"
-                                placeholder="XX" required readonly>
+                                placeholder="XX" minlength="2" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Endereço</label>
@@ -179,7 +209,7 @@
                         <div class="col-3">
                             <label class="form-label">Telefone</label>
                             <input type="email" id="supplier-input-tel" class="form-control tel tel-For"
-                                placeholder="(00)00000-0000" required readonly>
+                                placeholder="(00)00000-0000" minlength="13" required readonly>
                         </div>
                     </div>
                 </div>
@@ -192,8 +222,8 @@
                         </div>
                         <div class="col-cep">
                             <label class="form-label">CEP</label>
-                            <input type="text" class="form-control cep cep-For" placeholder="00000-000" required
-                                disabled>
+                            <input type="text" class="form-control cep cep-For" placeholder="00000000" minlength="8"
+                                required disabled>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Cidade</label>
@@ -201,7 +231,7 @@
                         </div>
                         <div class="col-uf">
                             <label class="form-label">UF</label>
-                            <input type="text" class="form-control uf-For" maxlength="2" placeholder="XX" required
+                            <input type="text" class="form-control uf-For" minlength="2" placeholder="XX" required
                                 disabled>
                         </div>
                         <div class="col-3">
@@ -220,8 +250,8 @@
                         </div>
                         <div class="col-3">
                             <label class="form-label">Telefone</label>
-                            <input type="tel" class="form-control tel tel-For" placeholder="(00)00000-0000" required
-                                disabled>
+                            <input type="tel" class="form-control tel tel-For" placeholder="(00)0000-0000"
+                                minlength="13" required disabled>
                         </div>
                     </div>
                 </div>
@@ -277,9 +307,11 @@
                                 R$<input type="text" class="money" id="display-value" value="0,00" readonly>
                             </div>
                             <div class="position-relative">
-                                <input type="checkbox" class="form-check-input" onchange="handleChecked(this)"
-                                    id="check-value" required>
-                                <label for="check-value">Confira o Valor</label>
+                                <button class="btn btn-primary" id="check-btn" type="button" onclick="handleChecked()">
+                                    Confirme os itens
+                                    <input type="checkbox" class="form-check-input" id="check-value"
+                                        onclick="return false" required>
+                                </button>
                                 <div class="invalid-tooltip">Confirme o valor!</div>
                             </div>
                         </div>
@@ -288,7 +320,6 @@
             </tfoot>
         </table>
     </div>
-    <button type="submit" class="btn btn-outline-primary" onclick="_saveData()">Check</button>
 
     </form>
     </div>
@@ -303,6 +334,7 @@
     <!-- Senior -->
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.contentWindow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
     <script type="text/javascript" src="https://cdn.senior.com.br/bpm/1.10.0/workflow-cockpit.min.js"></script>
     <!-- Mask -->
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
