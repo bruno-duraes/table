@@ -26,8 +26,8 @@ function _init(data, info) {
             console.log('Loading...', map)
 
             // Preenchendo os campos do formulario
-            let busFor = map.get('buFor')
-            if (!busFor) {
+            let busFor = map.get('busFor')
+            if (busFor == 'false') {
                 document.querySelector('#register-supplier-radio').setAttribute('checked', 'checked')
                 handleSuppliers()
             }
