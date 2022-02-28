@@ -183,7 +183,7 @@ function isFormValid() {
 
     let dataValid = []
 
-    if (inputRadioSearch == true) {
+    if (inputRadioSearch() == true) {
         dataValid.push(document.querySelector('#setor-select').value)
         dataValid.push(searchOrRegister().querySelector('.nom-For').value)
     } else {
@@ -210,6 +210,9 @@ function isFormValid() {
 
     let dataInvalid = dataValid.filter((value) => { return value == '' })
     let isChecked = document.querySelector('#check-value').checked
+
+    console.log('Dados', dataValid)
+    console.log('Dados Inv', dataInvalid)
 
     if (!isChecked) {
         document.querySelector('#check-value').setAttribute('class', 'form-check-input is-invalid')
