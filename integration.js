@@ -203,6 +203,10 @@ function isFormValid() {
         dataValid.push(document.querySelector(`#input-totalValue-${id}`).value)
     }
 
+    if (tableRows.length == 0) {
+        return (false)
+    }
+
     let dataInvalid = dataValid.filter((value) => { return value == '' })
     let isChecked = document.querySelector('#check-value').checked
 
