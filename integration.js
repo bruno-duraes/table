@@ -60,6 +60,8 @@ function _init(data, info) {
         info.getTaskData().then((data) => {
             let { taskName } = data
 
+            if (taskName == 'Solicitante') { throw console.log('🟡 Enable editing 📝') }
+
             handleChecked()
             let searchInputRadio = document.querySelector('#search-supplier-radio')
             let registerInputRadio = document.querySelector('#register-supplier-radio')
