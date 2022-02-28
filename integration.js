@@ -30,17 +30,20 @@ function _init(data, info) {
             if (busFor == 'false') {
                 document.querySelector('#register-supplier-radio').setAttribute('checked', 'checked')
                 handleSuppliers()
+                document.querySelector('#setor-select').value = map.get('selSet')
+                searchOrRegister().querySelector('.nom-For').value = map.get('nomFor')
+                searchOrRegister().querySelector('.cep-For').value = map.get('cepFor')
+                searchOrRegister().querySelector('.cid-For').value = map.get('cidFor')
+                searchOrRegister().querySelector('.uf-For').value = map.get('ufFor')
+                searchOrRegister().querySelector('.end-For').value = map.get('endFor')
+                searchOrRegister().querySelector('.bai-For').value = map.get('baiFor')
+                searchOrRegister().querySelector('.email-For').value = map.get('emailFor')
+                searchOrRegister().querySelector('.tel-For').value = map.get('telFor')
+            } else {
+                handleSuppliers()
+                document.querySelector('#setor-select').value = map.get('selSet')
+                searchOrRegister().querySelector('.nom-For').value = map.get('nomFor')
             }
-            document.querySelector('#setor-select').value = map.get('selSet')
-            document.querySelector('#setor-select').value = map.get('selSet')
-            searchOrRegister().querySelector('.nom-For').value = map.get('nomFor')
-            searchOrRegister().querySelector('.cep-For').value = map.get('cepFor')
-            searchOrRegister().querySelector('.cid-For').value = map.get('cidFor')
-            searchOrRegister().querySelector('.uf-For').value = map.get('ufFor')
-            searchOrRegister().querySelector('.end-For').value = map.get('endFor')
-            searchOrRegister().querySelector('.bai-For').value = map.get('baiFor')
-            searchOrRegister().querySelector('.email-For').value = map.get('emailFor')
-            searchOrRegister().querySelector('.tel-For').value = map.get('telFor')
 
             let i = 1
             while (map.get(`tabSol-${i}`) !== undefined) {
