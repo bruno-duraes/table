@@ -183,15 +183,20 @@ function isFormValid() {
 
     let dataValid = []
 
-    dataValid.push(document.querySelector('#setor-select').value)
-    dataValid.push(searchOrRegister().querySelector('.nom-For').value)
-    dataValid.push(searchOrRegister().querySelector('.cep-For').value)
-    dataValid.push(searchOrRegister().querySelector('.cid-For').value)
-    dataValid.push(searchOrRegister().querySelector('.uf-For').value)
-    dataValid.push(searchOrRegister().querySelector('.end-For').value)
-    dataValid.push(searchOrRegister().querySelector('.bai-For').value)
-    dataValid.push(searchOrRegister().querySelector('.email-For').value)
-    dataValid.push(searchOrRegister().querySelector('.tel-For').value)
+    if (inputRadioSearch == true) {
+        dataValid.push(document.querySelector('#setor-select').value)
+        dataValid.push(searchOrRegister().querySelector('.nom-For').value)
+    } else {
+        dataValid.push(document.querySelector('#setor-select').value)
+        dataValid.push(searchOrRegister().querySelector('.nom-For').value)
+        dataValid.push(searchOrRegister().querySelector('.cep-For').value)
+        dataValid.push(searchOrRegister().querySelector('.cid-For').value)
+        dataValid.push(searchOrRegister().querySelector('.uf-For').value)
+        dataValid.push(searchOrRegister().querySelector('.end-For').value)
+        dataValid.push(searchOrRegister().querySelector('.bai-For').value)
+        dataValid.push(searchOrRegister().querySelector('.email-For').value)
+        dataValid.push(searchOrRegister().querySelector('.tel-For').value)
+    }
 
     let tableRows = document.querySelector('#tbody').children
     for (let i = 0; i < tableRows.length; i++) {
