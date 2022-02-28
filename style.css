@@ -15,14 +15,55 @@ body{
     border: #c2c2c2 solid 1px;
 }
 #insert input{
-    width: 260px;
     height: 28px;
 }
+
 
 #insert label{
     font-size: larger;
 }
 
+#insert #requester{
+    width: 15em;
+    padding-left: 5px;
+}
+
+#insert #qntd{
+    width: 4em;
+    text-align: center;
+}
+
+#insert .bi-plus-circle-fill{
+    font-size: 20px;
+    color: rgb(84, 155, 84);
+    cursor: pointer;
+}.bi-plus-circle-fill:hover{
+    opacity: 80%;
+}
+
+#insert .bi-dash-circle-fill{
+    font-size: 20px;
+    color: #e85e6c;
+    cursor: pointer;
+}.bi-dash-circle-fill:hover{
+    opacity: 80%;
+}
+
+#insert #name{
+    padding-left: 5px;
+    width: 20em;
+}
+
+#insert .span-money{
+    /* color: #505050; */
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+#insert #unit-value{
+    width: 6em;
+    text-align: center;
+}
 .save-btn{
     margin-inline: 1em;
     margin-bottom: 1em;

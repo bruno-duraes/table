@@ -151,22 +151,17 @@ function deleteLine(i) {
 
 function editLine(obj) {
 
-    let allElements = document.querySelector(`#row${obj}`).children
-    // console.log(allElements[0].querySelector('input'))
-    if (allElements[0].querySelector('input').hasAttribute('readonly')) {
-        for (let i = 0; i < 3; i++) {
+    let allElements = document.querySelector(`#row${obj}`)
 
-            let element = allElements[i].querySelector('input')
-            element.removeAttribute('readonly')
-        }
+    if (allElements.querySelector('.requester').hasAttribute('readonly')) {
+
+        allElements.querySelector('.requester').removeAttribute('readonly')
+        allElements.querySelector('.name').removeAttribute('readonly')
+
     } else {
-        for (let i = 0; i < 4; i++) {
-
-            let element = allElements[i].children
-            element[0].setAttribute('readonly', 'readonly')
-        }
+        allElements.querySelector('.requester').setAttribute('readonly', 'readonly')
+        allElements.querySelector('.name').setAttribute('readonly', 'readonly')
     }
-
 }
 
 function handleChecked() {
@@ -182,6 +177,16 @@ function handleChecked() {
         btn.setAttribute('class', 'btn btn-success')
     }
 
+}
+
+function insertNum(el) {
+    let display = document.querySelector('#qntd')
+
+    if (el.id == 'sum') {
+        display.value++
+    } else {
+        display.value == 0 ? null : display.value--
+    }
 }
 
 // Mask

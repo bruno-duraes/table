@@ -96,7 +96,7 @@ function _saveData() {
         document.querySelector('.needs-validation').classList.add("was-validated")
         throw console.error('Formulário Inválido!')
     }
-
+    tableRowsValidation()
 
     let newData = {}
 
@@ -203,10 +203,6 @@ function isFormValid() {
         dataValid.push(document.querySelector(`#input-totalValue-${id}`).value)
     }
 
-    if (tableRows.length == 0) {
-        return (false)
-    }
-
     let dataInvalid = dataValid.filter((value) => { return value == '' })
     let isChecked = document.querySelector('#check-value').checked
 
@@ -219,4 +215,12 @@ function isFormValid() {
     }
 
     return true
+}
+
+function tableRowsValidation() {
+    let rows = document.querySelector('#tbody').children.length
+    if (rows == 0) {
+        shootModal('modal-tableLengthValidation')
+        throw console.error('Não é possivel enviar uma tabela vazia!')
+    }
 }

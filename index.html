@@ -272,6 +272,8 @@
         <div id="insert">
             <label for="qntd" class="form-label">Quantidade</label><br>
             <input type="text" id="qntd" min="0" data-mask="00000">
+            <i class="bi bi-plus-circle-fill" id="sum" onclick="insertNum(this)"></i>
+            <i class="bi bi-dash-circle-fill" id="sub" onclick="insertNum(this)"></i>
         </div>
         <div id="insert">
             <label for="name" class="form-label">Especificação</label><br>
@@ -279,11 +281,15 @@
         </div>
         <div id="insert">
             <label for="unit-value" class="form-label">Valor Unitario</label><br>
+            <span class="span-money">R$</span>
             <input type="text" id="unit-value" min="0" placeholder="0,00" class="money">
         </div>
     </div>
     <div class="d-grid gap-2">
-        <button class="btn btn-primary save-btn" type="button" onclick="addData()">Adicionar</button>
+        <button class="btn btn-primary save-btn" type="button" onclick="addData()">
+            Adicionar
+
+        </button>
     </div>
     <div class="table-form">
         <table class="table table-striped caption-top">
@@ -320,7 +326,6 @@
             </tfoot>
         </table>
     </div>
-
     </form>
     </div>
     <!-- /Content -->
