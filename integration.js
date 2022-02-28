@@ -73,7 +73,7 @@ function _init(data, info) {
 
             document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
             document.querySelector('#setor-select').setAttribute('readonly', 'readonly')
-            searchOrRegister().querySelector('.nom-For').setAttribute('readonly', 'readonly')
+            searchOrRegister().querySelector('.nom-For').setAttribute('disabled', 'disabled')
             searchOrRegister().querySelector('.cep-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.cid-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.uf-For').setAttribute('readonly', 'readonly')
@@ -237,3 +237,4 @@ function tableRowsValidation() {
         throw console.error('Não é possivel enviar uma tabela vazia!')
     }
 }
+
