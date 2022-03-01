@@ -120,9 +120,7 @@
         <form class="needs-validation" novalidate>
 
             <div id="alert-display">
-
             </div>
-
 
             <div class="content-divisor">
                 <i class="bi bi-clipboard2-check"></i>
@@ -271,9 +269,11 @@
         </div>
         <div id="insert">
             <label for="qntd" class="form-label">Quantidade</label><br>
-            <input type="text" id="qntd" min="0" data-mask="00000">
-            <i class="bi bi-plus-circle-fill" id="sum" onclick="insertNum(this)"></i>
-            <i class="bi bi-dash-circle-fill" id="sub" onclick="insertNum(this)"></i>
+            <div>
+                <input type="text" id="qntd" min="0" data-mask="00000">
+                <i class="bi bi-plus-circle-fill" id="sum" onclick="insertNum(this)"></i>
+                <i class="bi bi-dash-circle-fill" id="sub" onclick="insertNum(this)"></i>
+            </div>
         </div>
         <div id="insert">
             <label for="name" class="form-label">Especificação</label><br>

@@ -4,6 +4,7 @@ this.workflowCockpit = workflowCockpit({
     onError: _rollback,
 });
 
+// commit feito por SML 01/03/2022 09:00
 function _init(data, info) {
     console.log("Informações do processo:", data)
     const { intialVariables } = data.loadContext
@@ -18,6 +19,8 @@ function _init(data, info) {
         )
     })
 
+
+
     info.getInfoFromProcessVariables().then((processVar) => {
         if (!info.isRequestNew() && Array.isArray(processVar)) {
 
@@ -29,7 +32,7 @@ function _init(data, info) {
             let busFor = map.get('busFor')
             if (busFor == 'false') {
                 document.querySelector('#register-supplier-radio').setAttribute('checked', 'checked')
-                handleSuppliers()
+
                 document.querySelector('#setor-select').value = map.get('selSet')
                 searchOrRegister().querySelector('.nom-For').value = map.get('nomFor')
                 searchOrRegister().querySelector('.cep-For').value = map.get('cepFor')
@@ -40,9 +43,13 @@ function _init(data, info) {
                 searchOrRegister().querySelector('.email-For').value = map.get('emailFor')
                 searchOrRegister().querySelector('.tel-For').value = map.get('telFor')
             } else {
-                handleSuppliers()
                 document.querySelector('#setor-select').value = map.get('selSet')
-                searchOrRegister().querySelector('.nom-For').value = map.get('nomFor')
+
+                let selectNomFor = searchOrRegister().querySelector('.nom-For').children
+                console.log(Array.from(selectNomFor))
+
+                // for (let i = 0; i < selectNomFor.length; i++) {
+                // }
             }
 
             let i = 1
@@ -71,9 +78,9 @@ function _init(data, info) {
 
             searchInputRadio.checked ? registerInputRadio.setAttribute('disabled', 'disabled') : searchInputRadio.setAttribute('disabled', 'disabled')
 
+            // document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
             document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
-            document.querySelector('#setor-select').setAttribute('readonly', 'readonly')
-            searchOrRegister().querySelector('.nom-For').setAttribute('disabled', 'disabled')
+            // searchOrRegister().querySelector('.nom-For').setAttribute('disabled', 'disabled')
             searchOrRegister().querySelector('.cep-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.cid-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.uf-For').setAttribute('readonly', 'readonly')
@@ -90,9 +97,9 @@ function _init(data, info) {
 
 }
 
+function _saveData(data, info) {
 
-function _saveData() {
-
+    console.log('Informações', info)
     console.log('Formulario Válido?', isFormValid())
 
     if (!isFormValid()) {
