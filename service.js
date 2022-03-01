@@ -59,7 +59,7 @@ fetch("https://seniormsc.mainhardt.com.br:8181/API/G5Rest?server=https://seniorm
     .then(result => {
         let suppliers = JSON.parse(result).tabela
         arrSupp = suppliers
-        console.log(suppliers)
+        // console.log(suppliers)
 
         for (let i = 0; i < suppliers.length; i++) {
             const supplier = suppliers[i];
@@ -79,6 +79,8 @@ fetch("https://seniormsc.mainhardt.com.br:8181/API/G5Rest?server=https://seniorm
 
 function handleSelectSupplier(ev) {
 
+    Array.from(document.querySelectorAll('.spinner-border')).map((el) => el.removeAttribute('hidden'))
+
     fetch("https://seniormsc.mainhardt.com.br:8181/API/G5Rest?server=https://seniormsc.mainhardt.com.br:8181&module=sapiens&service=com_platform_fornecedor&port=consultafornecedor", requestOptions)
 
         .then(response => response.text())
@@ -96,6 +98,8 @@ function handleSelectSupplier(ev) {
             document.querySelector('#supplier-input-neighborhood').value = selectedSupplier.baifor
             document.querySelector('#supplier-input-email').value = selectedSupplier.intnet
             document.querySelector('#supplier-input-tel').value = selectedSupplier.fonfor
+
+            Array.from(document.querySelectorAll('.spinner-border')).map((el) => el.setAttribute('hidden', 'hidden'))
         })
 
         .catch(error => console.log('error', error))

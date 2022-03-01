@@ -129,6 +129,7 @@ function showTotalPrice(totalPrice) {
     if (strTotalPrice.indexOf('.') > 0) {
         let beforeComma = strTotalPrice.split('.')[0]
         let afterComma = strTotalPrice.split('.')[1].split('').slice(0, 2).join('')
+        afterComma.length == 1 ? afterComma = `${afterComma}0` : null
         document.querySelector('#display-value').value = `${beforeComma},${afterComma}`
     } else {
         document.querySelector('#display-value').value = `${totalPrice},00`

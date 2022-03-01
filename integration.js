@@ -7,8 +7,7 @@ this.workflowCockpit = workflowCockpit({
 // commit feito por SML 01/03/2022 09:00
 function _init(data, info) {
     console.log("Informações do processo:", data)
-    const { intialVariables } = data.loadContext
-    console.log(intialVariables)
+
     info.getUserData().then(
         (user) => {
             console.log('User:', user)
@@ -44,12 +43,17 @@ function _init(data, info) {
                 searchOrRegister().querySelector('.tel-For').value = map.get('telFor')
             } else {
                 document.querySelector('#setor-select').value = map.get('selSet')
-
-                let selectNomFor = searchOrRegister().querySelector('.nom-For').children
-                console.log(Array.from(selectNomFor))
-
-                // for (let i = 0; i < selectNomFor.length; i++) {
-                // }
+                Array.from(document.querySelectorAll('.spinner-border')).map((el) => el.removeAttribute('hidden'))
+                setTimeout(() => {
+                    let selectNomFor = searchOrRegister().querySelector('.nom-For')
+                    let selectChildrens = Array.from(selectNomFor.children)
+                    selectChildrens.map((el) => {
+                        if (el.value == map.get('nomFor')) {
+                            el.setAttribute('selected', 'selected')
+                            handleSelectSupplier(selectNomFor)
+                        }
+                    })
+                }, 2000)
             }
 
             let i = 1
@@ -78,9 +82,8 @@ function _init(data, info) {
 
             searchInputRadio.checked ? registerInputRadio.setAttribute('disabled', 'disabled') : searchInputRadio.setAttribute('disabled', 'disabled')
 
-            // document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
             document.querySelector('#setor-select').setAttribute('disabled', 'disabled')
-            // searchOrRegister().querySelector('.nom-For').setAttribute('disabled', 'disabled')
+            searchOrRegister().querySelector('.nom-For').setAttribute('disabled', 'disabled')
             searchOrRegister().querySelector('.cep-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.cid-For').setAttribute('readonly', 'readonly')
             searchOrRegister().querySelector('.uf-For').setAttribute('readonly', 'readonly')
@@ -91,11 +94,13 @@ function _init(data, info) {
             Array.from(document.querySelectorAll('#insert input')).map((el) => { el.setAttribute('disabled', 'disabled') })
             Array.from(document.querySelectorAll('.btn')).map((el) => { el.setAttribute('disabled', 'disabled') })
             Array.from(document.querySelectorAll('table i')).map((el) => { el.remove() })
+            Array.from(document.querySelectorAll('#insert i')).map((el) => { el.remove() })
 
         })
     }
 
 }
+
 
 function _saveData(data, info) {
 
@@ -141,8 +146,6 @@ function _saveData(data, info) {
     }
 
 }
-
-
 
 function searchOrRegister() {
     let searchRadio = document.querySelector('#search-supplier-radio')

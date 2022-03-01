@@ -168,6 +168,9 @@
                     <div class="row justify-content-md-center">
                         <div class="col-3">
                             <label class="form-label">Nome do Fornecedor</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <select id="select-supplier" class="form-select nom-For"
                                 onchange="handleSelectSupplier(this)" required>
                                 <option selected></option>
@@ -175,20 +178,32 @@
                         </div>
                         <div class="col-cep">
                             <label class="form-label">CEP</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="text" id="supplier-input-cep" class="form-control cep cep-For"
                                 placeholder="00000000" minlength="8" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Cidade</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="text" id="supplier-input-city" class="form-control cid-For" required readonly>
                         </div>
                         <div class="col-uf">
                             <label class="form-label">UF</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="text" id="supplier-input-uf" class="form-control uf-For" maxlength="2"
                                 placeholder="XX" minlength="2" required readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Endereço</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="text" id="supplier-input-address" class="form-control end-For" required
                                 readonly>
                         </div>
@@ -196,16 +211,25 @@
                     <div class="row justify-content-md-center">
                         <div class="col-3">
                             <label class="form-label">Bairro</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="text" id="supplier-input-neighborhood" class="form-control bai-For" required
                                 readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Email</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="email" id="supplier-input-email" class="form-control email-For" required
                                 readonly>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Telefone</label>
+                            <div class="spinner-border" hidden role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                             <input type="email" id="supplier-input-tel" class="form-control tel tel-For"
                                 placeholder="(00)00000-0000" minlength="13" required readonly>
                         </div>
