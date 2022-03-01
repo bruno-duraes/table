@@ -247,3 +247,12 @@ hr{
     width: 14px;
     font-size: 10px;
 }
+
+#inserts-of-director div{
+    margin-top: 1.5em;
+}
+
+#inserts-of-director label{
+    color: #969696;
+}
+

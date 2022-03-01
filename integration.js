@@ -73,6 +73,7 @@ function _init(data, info) {
     function formReadOnly() {
         info.getTaskData().then((data) => {
             let { taskName } = data
+            boardDecision()
 
             if (taskName == 'Solicitante') { throw console.log('🟡 Enable editing 📝') }
 
@@ -99,8 +100,17 @@ function _init(data, info) {
         })
     }
 
-}
+    function boardDecision() {
+        info.getTaskData().then((data) => {
+            let { taskName } = data
 
+            if (taskName == 'Diretoria') {
+                document.querySelector('#director-area').removeAttribute('hidden')
+                exportedTaskName = taskName
+            }
+        })
+    }
+}
 
 function _saveData(data, info) {
 
@@ -109,7 +119,7 @@ function _saveData(data, info) {
 
     if (!isFormValid()) {
         shootAlert()
-        shootModal('modal-formInvalid')
+        new bootstrap.Toast(document.getElementById('errorToast')).show()
         document.querySelector('.needs-validation').classList.add("was-validated")
         throw console.error('Formulário Inválido!')
     }
@@ -139,6 +149,11 @@ function _saveData(data, info) {
         newData[`tabToV-${id}`] = document.querySelector(`#input-totalValue-${id}`).value
     }
     newData.tabTot = document.querySelector('#display-value').value
+
+    if (exportedTaskName == "Diretoria") {
+        newData.directorDecision = document.querySelector('#floatingSelect').value
+        newData.directorDecisionObs = document.querySelector('#floatingTextarea2').value
+    }
 
     console.log(newData)
     return {
@@ -192,11 +207,13 @@ function shootAlert() {
     }
 }
 
-
+let exportedTaskName = ''
 function isFormValid() {
-
-
     let dataValid = []
+
+    if (exportedTaskName == "Diretoria") {
+        dataValid.push(document.querySelector('#floatingSelect').value)
+    }
 
     if (inputRadioSearch() == true) {
         dataValid.push(document.querySelector('#setor-select').value)

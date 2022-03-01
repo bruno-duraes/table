@@ -116,8 +116,52 @@
 
     </Modal>
     <!-- Content -->
+
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="errorToast" class="toast align-items-center text-white bg-danger " role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <h5>
+                        <i class="bi bi-exclamation-circle"></i>
+                        Formulário Inválido
+                    </h5>
+                    Verifique os campos e tente novamente!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <form class="needs-validation" novalidate>
+            <div id="director-area" hidden>
+                <div class="content-divisor">
+                    <i class="bi bi-building"></i>
+                    <span class="hr-label">Diretoria</span>
+                    <hr>
+
+                </div>
+
+                <div id="inserts-of-director">
+                    <div class="form-floating col">
+                        <select class="form-select" id="floatingSelect" required
+                            aria-label="Floating label select example">
+                            <option selected></option>
+                            <option>Aprovado</option>
+                            <option>Reprovado</option>
+                            <option>Solicitar Revisão</option>
+                        </select>
+                        <label for="floatingSelect">Selecione o Status do Projeto</label>
+                    </div>
+                    <div class="form-floating col">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Observação</label>
+                    </div>
+                </div>
+            </div>
 
             <div id="alert-display">
             </div>
