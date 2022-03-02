@@ -199,7 +199,7 @@ function shootAlert() {
         return (
             document.querySelector('#alert-display').innerHTML =
             `<br>
-    <div class="alert alert-danger alert-dismissible" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <i class="bi bi-exclamation-circle-fill"></i>
         Confirme os itens da tabela!!
         <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
